@@ -1,9 +1,8 @@
 import { Grid, Box, Image, useBreakpointValue, Button, useMediaQuery } from "@chakra-ui/react";
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { FaPlayCircle } from 'react-icons/fa';
-
-
+import { useNavigate } from "react-router-dom";
+import tmdb from "../../api/tmdb";
 interface Movie {
     id: number;
     title: string;
@@ -18,29 +17,20 @@ export default function Movies() {
     const [hoveredIndex, setHoveredIndex] = useState(-1);
     const [activeIndex, setActiveIndex] = useState(-1);
     const containerRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     const [isMobile] = useMediaQuery("(max-width: 500px)");
 
-    const API_KEY = '75eddc206ffda5dd327101183d4e6b2f';
+    const API_KEY = tmdb ;
 
     useEffect(() => {
         const fetchMovies = async () => {
-            try {
-                const response = await axios.get(
-                    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=pt-BR&include_image_language=pt-BR,null`
-                );
-                const moviesWithButton = response.data.results.map((movie: Movie) => ({
-                    ...movie,
-                    showButton: false,
-                }));
-                setMovies(moviesWithButton);
-            } catch (error) {
-                console.log(error);
-            }
+            const {data} = await tmdb.get("discover/movie")
+            setMovies(data.results)
         };
 
         fetchMovies();
-    }, []);
+    }, [API_KEY]);
 
     useEffect(() => {
         const handleDocumentClick = (event: MouseEvent) => {
@@ -57,11 +47,9 @@ export default function Movies() {
     }, []);
 
 
-    function handleMovie() {
-        if (activeIndex !== -1 && activeIndex < movies.length) {
-            const movie = movies[activeIndex];
-            console.log(`Clicou no filme ${movie.title}, ${movie.overview}`);
-        }
+    function handleMovie(title: string, overview: string, id: number, poster_path: string ) {
+        // alert(`Clicou no filme ${title}, ${overview}`);
+        navigate('/about', { state: { title,overview, id, poster_path } })
     }
 
 
@@ -111,7 +99,7 @@ export default function Movies() {
                                 background={"transparent"}
                                 color={"#fff"}
                                 _hover={{background: "none", color: '#f00'}}
-                                onClick={handleMovie}
+                                onClick={() => handleMovie(movie.title, movie.overview, movie.id, movie.poster_path)}
 
                             >
                                <FaPlayCircle size={"3rem"} />

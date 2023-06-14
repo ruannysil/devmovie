@@ -28,9 +28,9 @@ function App() {
         maxW={300}
         p={4}
         direction={'column'}
-        gap={'1rem'}
+        align={"center"}
       >
-        <Center mt={isMobile ? "10rem" : '2'}>
+        <Center mt={isMobile ? "6rem" : '2'}>
           <Image src={LogoGG} alt="logo" />
         </Center>
         <Button
