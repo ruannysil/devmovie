@@ -1,4 +1,4 @@
-<h1 align="center">Sistema de cadastro</h1>
+<h1 align="center">Devmovie</h1>
 
 <p align="center">
 Tem como ponto forte cadastra dados ou informações fornecida pelo usuário.
@@ -11,7 +11,7 @@ Tem como ponto forte cadastra dados ou informações fornecida pelo usuário.
 </p>
 
 <p align="center">
-  <img alt="License" src="https://github.com/ruannysil/tela-login/assets/84647446/b8e29ed3-9417-4b10-8703-09fe40ef5bfb"
+  <img alt="License" src="https://github.com/ruannysil/devmovie/assets/84647446/f432c2f2-1668-4343-b293-f651729e45df)"
  width="700px">
 </p>
 
